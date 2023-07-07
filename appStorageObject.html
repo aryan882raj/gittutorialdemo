@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+    crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+    crossorigin="anonymous"></script>
+
+    <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  padding: 5px;
+  background: rgb(234, 164, 234);
+  margin: 1px 0;
+}
+
+header {
+  background: rgb(234, 164, 234);
+  padding: 1rem;
+  text-align: center;
+}
+
+.container {
+  margin: auto;
+  width: 500px;
+  overflow: auto;
+  padding: 3rem 2rem;
+}
+
+#my-form {
+  padding: 2rem;
+  background: #f4f4f4;
+}
+
+#my-form label {
+  display: block;
+}
+
+#my-form input[type='text'] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 153, 190);
+}
+
+
+.btn3 {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: 0;
+  background: rgb(183, 131, 183);
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.btn3:hover {
+  background: purple;
+}
+.bg-red {
+  background: #e44242;
+  color: #fff;
+}
+
+.bg-dark {
+  background: #333;
+  color: #fff;
+}
+
+.error {
+  background: orangered;
+  color: #fff;
+  padding: 5px;
+  margin: 5px;
+}</style>
+
+
+  </head>
+  <body>
+    <header>
+      <h1>Aryan Raj</h1>
+    </header>
+
+    <section class="container">
+      <form id="my-form">
+        <h1>Add User</h1>
+        <div class="msg"></div>
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name">
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" id="email">
+        </div>
+        <input class="btn3" type="submit" value="Submit">
+      </form>
+
+      <ul id="users"></ul>
+
+      <!-- <ul class="items">
+        <li class="item">Item 1</li>
+        <li class="item">Item 2</li>
+        <li class="item">Item 3</li>
+      </ul> -->
+    </section>
+    
+    <!-- <script src="app.js"></script> -->
+    <script >
+      
+        const myForm = document.querySelector("#my-form");
+const nameInput = document.querySelector("#name");
+const emailInput = document.querySelector("#email");
+const msg = document.querySelector(".msg");
+const userList = document.querySelector("#users");
+
+myForm.addEventListener('submit',onSubmit);
+
+function onSubmit(e){
+    e.preventDefault();
+    console.log(nameInput.value);
+    if(nameInput.value ==='' || emailInput.value==='')
+    {
+    msg.classList.add('error');
+    msg.innerHTML="Please provide all Input";
+    setTimeout(()=>msg.remove(),3000);
+    }
+    else{
+    console.log("success")
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`));
+
+    userList.appendChild(li);
+
+    
+    let myObj={
+        name : nameInput.value,
+        email : emailInput.value
+    }
+    //convert in string using json
+    let myObj_sereal = JSON.stringify(myObj); 
+    let myObj_desereal = JSON.parse(localStorage.getItem("myObj"));
+
+    localStorage.setItem("myObj",myObj_sereal);
+    localStorage.setItem("myObj",myObj_desereal);
+    
+    console.log(myObj_sereal)
+    console.log(myObj_desereal);
+
+    nameInput.value = '';
+    emailInput.value = '';
+    }
+}
+
+    </script>
+  </body>
+</html>
