@@ -8,6 +8,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     body{
         margin-top: 40px;
     }
@@ -17,11 +22,30 @@
         min-height: 30px;
         font-size: 2rem;
     }
+    header {
+        background: #f4f4f4;
+        padding: 1rem;
+        text-align: center;
+    }
+    .btn1 {
+        /* display: block; */
+        width: 10%;
+
+        padding: 10px 20px;
+        border: 0;
+        background: rgb(183, 131, 183);
+        color: #fff;
+        border-radius: 100px;
+        margin: 10px;
+    }
     
     </style>
 
 </head>
 <body>
+    <header>
+        <h1>Add Expences</h1>
+    </header><br>
     <div class="container">
         <form action="#" id="myform" onsubmit="onAdd(event)">
             <label>Choose Expenses :</label>
@@ -45,12 +69,13 @@
                 <option> Movies </option>
             </select>
 
-            <button>ADD</button>
+            <button class="btn1">ADD</button>
         </form>
         
         <ul id="users"></ul>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <script>
 
     function onAdd(event)
@@ -75,7 +100,65 @@
             discription,
             category
         }
-        localStorage.setItem(obj.category,JSON.stringify(obj))  
+        // localStorage.setItem(obj.category,JSON.stringify(obj))  
+        // showNewUserOnScreen(obj)
+
+
+        //Network call using axios
+        axios.post("https://crudcrud.com/api/0055e3d3899b4ee691dcbf3fc5eb9990/appointmentData1",obj)
+        .then((response)=>{
+            // showNewUserOnScreen(response.data)
+            console.log(response)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+
+        // fetch data GET from crud
+        window.addEventListener("DOMContentLoaded",()=>{
+            axios.get('https://crudcrud.com/api/0055e3d3899b4ee691dcbf3fc5eb9990/appointmentData1')
+            .then((re)=>{console.log(re)})
+            .catch((err)=>{console.log(err)})
+
+
+            for(var i=0; i<response.data.length ; i++){
+                showNewOnScreen(response.data[i])
+            }
+
+        //delete from server
+        axios.delete("https://crudcrud.com/api/0055e3d3899b4ee691dcbf3fc5eb9990/appointmentData1",obj)
+        .then((response)=>{
+            // showNewUserOnScreen(response.data)
+            console.log(response)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+            
+            // const localstorageObj = localStorage;
+            // const localstoragekeys = Object.keys(localstorageObj)
+
+            // for(var i=0; i<localstoragekeys.length; i++){
+            //     const key = localstoragekeys[i]
+            //     const userDetailsString = localstorageObj[keys];
+            //     const userDetailsObj = JSON.parse(userDetailsString);
+            //     showNewUserOnScreen(userDetailsObj)
+            // }
+        })
+
+
+
+        // function showNewUserOnScreen(u){
+        //     document.getElementById('email').value = '';
+        //     document.getElementById('username').value = '';
+        //     deocument.getElementById('phonenumber').value = '';
+
+        //     if (localStorage.getItem(user.email)!== null){
+        //         removeUserFromScreen(user.email)
+        //     }
+        // }
 
 
         //delete
@@ -102,6 +185,10 @@
             document.getElementById('cat').value = obj.category
         }
         li.appendChild(editButton)
+
+        
+
+
 
 
 
