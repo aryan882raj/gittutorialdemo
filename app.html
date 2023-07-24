@@ -126,41 +126,64 @@ header {
       </ul> -->
     </section>
     
-
-    <script >
+    <script src="app.js"></script>
+    <!-- <script >
       
         const myForm = document.querySelector("#my-form");
-        const nameInput = document.querySelector("#name");
-        const emailInput = document.querySelector("#email");
-        const msg = document.querySelector(".msg");
-        const userList = document.querySelector("#users");
-        
-        myForm.addEventListener('submit',onSubmit);
+const nameInput = document.querySelector("#name");
+const emailInput = document.querySelector("#email");
+const msg = document.querySelector(".msg");
+const userList = document.querySelector("#users");
 
-        function onSubmit(e){
-          e.preventDefault();
-          console.log(nameInput.value);
-          if(nameInput.value ==='' || emailInput.value==='')
-          {
-            msg.classList.add('error');
-            msg.innerHTML="Please provide all Input";
-            setTimeout(()=>msg.remove(),3000);
-          }
-          else{
-            console.log("success")
-            const li = document.createElement("li");
-            li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`));
+myForm.addEventListener('submit',onSubmit);
 
-            userList.appendChild(li);
+function onSubmit(e){
+    e.preventDefault();
+    console.log(nameInput.value);
+    if(nameInput.value ==='' || emailInput.value==='')
+    {
+    msg.classList.add('error');
+    msg.innerHTML="Please provide all Input";
+    setTimeout(()=>msg.remove(),3000);
+    }
+    else{
+    console.log("success")
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`));
 
-            localStorage.setItem(nameInput.value,emailInput.value)
-            console.log(localStorage.getItem(nameInput.value))
+    userList.appendChild(li);
 
-            nameInput.value = '';
-            emailInput.value = '';
-          }
-        }
 
-    </script>
+    //   Local Storage ----------------------------------------------------
+    // to store data in local Storage  -------
+    // localStorage.setItem(nameInput.value,emailInput.value)
+    // store using session storage ------
+    // sessionStorage.setItem(nameInput.value,emailInput.value)
+    // store using cookies -------
+    // document.cookie = "nameInput.value=emailInput.value" , expire + new Date(2023,5,5).toUTCString()
+    // console.log(localStorage.getItem(nameInput.value))
+
+
+    //   Loacl Storage as Object -------------------------------------------
+    let myObj={
+        name : nameInput.value,
+        email : emailInput.value
+    }
+    //convert in string using json
+    let myObj_sereal = JSON.stringify(myObj); 
+    let myObj_desereal = JSON.parse(localStorage.getItem("myObj"));
+
+    localStorage.setItem("myObj",myObj_sereal);
+    localStorage.setItem("myObj",myObj_desereal);
+    
+    console.log(myObj_sereal)
+    console.log(myObj_desereal);
+
+    nameInput.value = '';
+    emailInput.value = '';
+    }
+}
+
+    </script> -->
   </body>
 </html>
